@@ -19,6 +19,7 @@ describe("Testing cinema ticket booking", () => {
   });
 
   test("The reservation of free space", async () => {
+    await clickElement(page, ".page-nav__day.page-nav__day_chosen");
     await clickElement(page, ".movie-seances__time[href='#'][data-seance-id='199']");
     await clickElement(page, ".buying-scheme__chair_standart");
     await clickElement(page, ".acceptin-button");
@@ -27,6 +28,7 @@ describe("Testing cinema ticket booking", () => {
   });
 
   test("The reservation of VIP-space", async () => {
+    await clickElement(page, ".page-nav__day.page-nav__day_chosen")
     await clickElement(page, ".movie-seances__time[href='#'][data-seance-id='199']");
     await clickElement(page, ".buying-scheme__chair_vip");
     await clickElement(page, ".acceptin-button");
@@ -35,6 +37,7 @@ describe("Testing cinema ticket booking", () => {
   });
 
   test("The reserved seat reservation", async () => {
+    await clickElement(page, ".page-nav__day.page-nav__day_chosen")
     await clickElement(page, ".movie-seances__time[href='#'][data-seance-id='199']");
     await clickElement(page, ".buying-scheme__chair_disabled");
     await clickElement(page, ".buying-scheme__chair_disabled");

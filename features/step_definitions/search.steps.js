@@ -19,8 +19,12 @@ After(async function () {
 
 Given("user is on {string} page", async function (string) {
   return await this.page.goto("http://qamid.tmweb.ru/client/index.php", {
-    timeout: 50000,
+    setTimeout: 50000,
   });
+});
+
+When('user click on the day of the week', async function () {
+  return await clickElement(page, ".page-nav__day.page-nav__day_chosen");
 });
 
 When('user click on the movie seance time', async function () {

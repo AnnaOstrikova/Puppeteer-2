@@ -1,7 +1,8 @@
 Feature: Search a course
     Scenario: The reservation of free space
         Given user is on "http://qamid.tmweb.ru/client/index.php" page
-        When user click on the movie seance time
+        When user click on the day of the week
+        And user click on the movie seance time
         And user click on a free seat
         And user click on the accept button
         Then user sees sees the title "Вы выбрали билеты:"
