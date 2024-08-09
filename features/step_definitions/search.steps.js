@@ -2,7 +2,8 @@ const puppeteer = require("puppeteer");
 const chai = require("chai");
 const expect = chai.expect;
 const { Given, When, Then, Before, After } = require("cucumber");
-const { putText, getText } = require("../../lib/commands.js");
+const { clickElement, putText, getText } = require("../../lib/commands.js");
+var {setDefaultTimeout} = require('cucumber'); setDefaultTimeout(60 * 1000); 
 
 Before(async function () {
   const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
@@ -18,17 +19,16 @@ After(async function () {
 });
 
 Given("user is on {string} page", async function (string) {
-  return await this.page.goto("http://qamid.tmweb.ru/client/index.php", {
-    setTimeout: 50000,
+  await this.page.goto("http://qamid.tmweb.ru/client/index.php", {
   });
 });
 
 When('user click on the day of the week', async function () {
-  return await clickElement(page, ".page-nav__day.page-nav__day_chosen");
+  await clickElement(this.page, ".page-nav__day.page-nav__day_chosen");
 });
 
 When('user click on the movie seance time', async function () {
-  return await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='199']");
+  await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='199']");
 });
 
 When('user click on a free seat', async function () {
@@ -39,29 +39,25 @@ When('user click on the accept button', async function () {
   await clickElement(this.page, ".acceptin-button");
 });
 
-
-
-// When('user selects VIP-space', async function () {
-//   await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='199']");
-//   await clickElement(this.page, ".buying-scheme__chair_vip");
-//   await clickElement(this.page, ".acceptin-button");
-// });
-
-// When('user selects reserved seat', async function () {
-//   await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='199']");
-//   await clickElement(this.page, ".buying-scheme__chair_disabled");
-//   await clickElement(this.page, ".buying-scheme__chair_disabled");
-// });
-
-
-Then('user sees sees the title {string}', async function (string) {
-  const actual = await getText(this.page, ".ticket__check-title");
-  const expected = await string;
-  await expect(actual).toContain(expected);
+When('user click on a VIP-space', async function () {
+  await clickElement(this.page, ".buying-scheme__chair_vip");
 });
 
+When('click on reserved seating movie times', async function () {
+  await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='223']");
+});
 
-// Then('the {string} button is inactive', async function (string) {
-//   const actual = await this.page.$eval("button", (button) => button.disabled);
-//   expect(actual).toBe(true);
-// });
+When('user click on reserved seat', async function () {
+  await clickElement(this.page, ".buying-scheme__chair_taken");
+});
+
+Then('user sees the title {string}', async function (string) {
+  const actual = await getText(this.page, ".ticket__check-title");
+  const expected = await string;
+  await expect(actual).contain(expected);
+});
+
+Then('the {string} button is inactive', async function (string) {
+  const actual = await this.page.$eval("button", (button) => button.disabled);
+  expect(actual).equal(true);
+});

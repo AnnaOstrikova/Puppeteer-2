@@ -38,9 +38,8 @@ describe("Testing cinema ticket booking", () => {
 
   test("The reserved seat reservation", async () => {
     await clickElement(page, ".page-nav__day.page-nav__day_chosen")
-    await clickElement(page, ".movie-seances__time[href='#'][data-seance-id='199']");
-    await clickElement(page, ".buying-scheme__chair_disabled");
-    await clickElement(page, ".buying-scheme__chair_disabled");
+    await clickElement(page, ".movie-seances__time[href='#'][data-seance-id='223']");
+    await clickElement(page, ".buying-scheme__chair_taken");
     const actual = await page.$eval("button", (button) => button.disabled);
     expect(actual).toBe(true);
   });
